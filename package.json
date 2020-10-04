@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client": "cd fronend && npm start",
+    "client": "cd frontend && npm start",
     "server": "cd backend && npm start",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
