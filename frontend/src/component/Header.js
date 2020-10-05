@@ -27,7 +27,7 @@ function Header(props){
             <AppBar position="static">
                 <Toolbar>
                 <Typography variant="h6" className={classes.title}>
-                    E-Societys
+                    E-Society
                 </Typography>
                 <Button color="inherit">Login</Button>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, BrowserRouter as Router } from "react-router-dom";
 
 import {useTheme, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -87,6 +88,39 @@ const useStyles = makeStyles((theme) => ({
   }),
 );
 
+export const SidebarData = [
+  {
+    title: 'Customers',
+    path: '/',
+    icon: <InboxIcon />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Notifications',
+    path: '/notifications',
+    icon: <InboxIcon />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Tasks',
+    path: '/tasks',
+    icon: <InboxIcon />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Reports',
+    path: '/dashboard',
+    icon: <InboxIcon />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Mail',
+    path: '/mail',
+    icon: <InboxIcon />,
+    cName: 'nav-text'
+  },
+];
+
 
 function DeshAppBar(props) {
     const classes = useStyles();
@@ -136,6 +170,20 @@ function DeshAppBar(props) {
         <div>
             <h5 className="mt-3" style={{textAlign: "center"}}>Deshboard</h5>
             <Divider />
+              <Router>
+                  <List >
+                  {SidebarData.map((item, index) => {
+                    return (
+                      <ListItem key={index}>
+                          <Link to={item.path}>
+                              <ListItemIcon>{item.icon}</ListItemIcon>
+                              <ListItemText primary={item.title}  />
+                          </Link>
+                      </ListItem>
+                    );
+                  })}
+                  </List>
+              </Router>
             <List >
                 <ListItem button >
                     <ListItemIcon><InboxIcon /></ListItemIcon>
@@ -163,7 +211,7 @@ function DeshAppBar(props) {
     );
     const container = window !== undefined ? () => window().document.body : undefined;
     return (
-        <div className={classes.root}>
+          <React.Fragment>
             <CssBaseline />
             <AppBar position="fixed" className="navbar navbar-dark bg-dark" className={classes.appBar}>
                 <Toolbar>
@@ -220,10 +268,6 @@ function DeshAppBar(props) {
                 </Drawer>
               </Hidden>
             </nav>
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                    <MainDesh />
-            </main>
             <Dialog 
                 open={open} 
                 onClose={handleClose} 
@@ -268,8 +312,7 @@ function DeshAppBar(props) {
                 </DialogActions>
                 </form>
             </Dialog>
-
-        </div>
+          </React.Fragment>
     )
 }
 
