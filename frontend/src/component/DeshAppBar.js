@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { Link, BrowserRouter as Router } from "react-router-dom";
 
 import {useTheme, makeStyles } from '@material-ui/core/styles';
@@ -23,9 +24,12 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
+
 import CloseIcon from '@material-ui/icons/Close';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import ReportIcon from '@material-ui/icons/Report';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import HomeIcon from '@material-ui/icons/Home';
@@ -36,6 +40,9 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 
 import MainDesh from './MainDesh';
+
+import * as Actions from '../store/actions'
+
 // appbar
 // [theme.breakpoints.up('sm')]: {
 //     width: `calc(100% - ${drawerWidth}px)`,
@@ -90,15 +97,15 @@ const useStyles = makeStyles((theme) => ({
 
 export const SidebarData = [
   {
-    title: 'Customers',
+    title: 'Home',
     path: '/',
-    icon: <InboxIcon />,
+    icon: <HomeIcon />,
     cName: 'nav-text'
   },
   {
-    title: 'Notifications',
+    title: 'Employees',
     path: '/notifications',
-    icon: <InboxIcon />,
+    icon: <PeopleAltIcon />,
     cName: 'nav-text'
   },
   {
@@ -110,19 +117,20 @@ export const SidebarData = [
   {
     title: 'Reports',
     path: '/dashboard',
-    icon: <InboxIcon />,
+    icon: <ReportIcon />,
     cName: 'nav-text'
   },
   {
     title: 'Mail',
     path: '/mail',
-    icon: <InboxIcon />,
+    icon: <MailIcon />,
     cName: 'nav-text'
   },
 ];
 
 
 function DeshAppBar(props) {
+    const dispatch = useDispatch()
     const classes = useStyles();
     const theme = useTheme();
     const { window } = props;
@@ -143,12 +151,12 @@ function DeshAppBar(props) {
     };
     const submitHandler = (e) => {
         e.preventDefault();
-        const data = {
-            username : e.target.value,
-            password : e.target.value
+        let data = {
+          username: userLogin.username,
+          password: userLogin.password
         }
         // console.log("hello", data)
-        // dispatch(Action.employeeRegister())
+        dispatch(Actions.loginUsers(data))
     }   
 
     const handleInputChange = (e) => {
@@ -164,6 +172,10 @@ function DeshAppBar(props) {
       setOpenColleps(!openColleps);
     };
 
+    const logOutHendle = () =>{
+      dispatch(Actions.logoutAuthentication())
+    }
+
     const maxWidth = "sm"
 
     const drawer = (
@@ -174,12 +186,12 @@ function DeshAppBar(props) {
                   <List >
                   {SidebarData.map((item, index) => {
                     return (
-                      <ListItem key={index}>
-                          <Link to={item.path}>
-                              <ListItemIcon>{item.icon}</ListItemIcon>
-                              <ListItemText primary={item.title}  />
-                          </Link>
-                      </ListItem>
+                      <Link to={item.path} key={index}>
+                        <ListItem key={index}>
+                        <ListItemIcon>{item.icon}</ListItemIcon>
+                                <ListItemText primary={item.title}  />
+                        </ListItem>
+                      </Link>
                     );
                   })}
                   </List>
@@ -230,6 +242,9 @@ function DeshAppBar(props) {
                 <Button className={classes.loginButton} onClick={handleClickOpen} color="inherit">
                     Login
                 </Button>
+                <Button onClick={logOutHendle} color="inherit">
+                    LogOut
+                </Button>
                 </Toolbar>
             </AppBar>
 
@@ -276,15 +291,15 @@ function DeshAppBar(props) {
                 fullWidth
             >
                 <DialogTitle id="form-dialog-title">Login</DialogTitle>
-                <form onClick={e => submitHandler(e)}>
+                <form onSubmit={e => submitHandler(e)}>
                 <DialogContent>
                     <TextField
                         autoFocus
                         aria-labelledby="max-width-dialog-title"
                         margin="dense"
-                        id="name"
+                        id="username"
                         label="Email Address"
-                        type="email"
+                        type="text"
                         name="username"
                         value={userLogin.username}
                         onChange={e => handleInputChange(e)}

@@ -27,7 +27,7 @@ bodyParser.urlencoded({ extended: true })
 var router = express.Router();
 
     //get api 
-    router.get("/users",(req, res) => {
+    app.get("/users",verifyToken, (req, res) => {
         User.find().then((data)=>{
             res.status(200).json(data) 
         })
@@ -79,10 +79,10 @@ app.post("/login",jsonParser, (req, res, next) => {
         +decipher.final('utf8');
         if(decryptted == req.body.password){
             jwt.sign({data}, jwtkey, {expiresIn: '1d'}, (err, token) => {
-                res.json({token})
+                res.status(201).json({token})
             })
         }
-    })
+    }).catch(err=> console.warn(err))
 });
 
 // app.use(bodyParser.urlencoded({ extended: false }));

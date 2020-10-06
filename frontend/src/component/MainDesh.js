@@ -11,9 +11,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { Formik } from "formik"
 import * as Yup from 'yup';
+
+import DeleteConfirmDialog from '../component/deleteConfermDialog'
 
 const initialFormValue = {
                             username: '',
@@ -27,7 +31,8 @@ function MainDesh(props) {
   const dispatch = useDispatch();
   const [buttonShow, setButtonShow] = useState(true)
   const [formData, setFormData] = useState(initialFormValue);
-
+  const [openDeleteConfirmDialog, setOpenDeleteConfirmDialog] = React.useState(false);
+  
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("*Required user name"),
     password: Yup.string().required("*Required password"),
@@ -99,7 +104,19 @@ function MainDesh(props) {
                         <TableCell align="right">{resData.username}</TableCell>
                         <TableCell align="right">{resData.password}</TableCell>
                         <TableCell align="right">{resData.Mobile}</TableCell>
-                        <TableCell align="right"></TableCell>
+                        <TableCell align="right">
+                          <button
+                            style={{background: 'none', border: 'none'}}
+                            title='Edit Employee'
+                            className="focus:outline-none" type="button"
+                          ><CreateIcon /></button>
+                          <button
+                            style={{background: 'none', border: 'none'}}
+                            onClick={() => {setOpenDeleteConfirmDialog(true)}}
+                            title='Delete Employee'
+                            className="focus:outline-none" type="button"
+                          ><DeleteIcon /></button>
+                        </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -179,6 +196,17 @@ function MainDesh(props) {
                 </form>
               )}
               </Formik>
+
+              <DeleteConfirmDialog 
+                    cofirmmessge="Delete this Employee?"
+                    open={openDeleteConfirmDialog}
+                    // onClickDelete={()=>{
+                    //     dispatch(Actions.removeSalesPerson( deleteSalesPersonId ));
+                    //     setOpenDeleteConfirmDialog(false);
+                    // }}
+                    onHide={() =>{ setOpenDeleteConfirmDialog(false) }} 
+              />
+
       </React.Fragment>
   );
 }

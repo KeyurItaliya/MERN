@@ -10,13 +10,17 @@ const ViewCampaign = lazy(()=> import('../component/MainDesh'))
 const SettingApp = lazy(()=> import('../component/MainDesh'))
 const ImportCustomerData = lazy(()=> import('../component/MainDesh'))
 
+const Login = lazy(()=> import('../component/Login'))
+
 export const AuthRoutes = [
 	{
 		path:'/',
+		exact : true,
 		component:CustomersApp
 	},
 	{
 		path:'/dashboard',
+		exact : true,
 		component:ReportDashboardApp
 	},
 	{
@@ -26,6 +30,7 @@ export const AuthRoutes = [
 	},
 	{
 		path:'/notifications',
+		exact : true,
 		component:NotificationApp
 	},
 	{
@@ -35,6 +40,7 @@ export const AuthRoutes = [
 	},
 	{
 		path:'/mail/campaigns',
+		exact : true,
 		component:ViewCampaign
 	},
 	{
@@ -46,6 +52,11 @@ export const AuthRoutes = [
 		path:'/notiphyimport',
 		exact:true,
 		component:ImportCustomerData
+	},
+	{
+		path:'/login',
+		exact:true,
+		component:Login 
 	},
 	///// temp routes
 

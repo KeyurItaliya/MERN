@@ -1,4 +1,4 @@
-import { USER_LOGIN_PROCESS } from '../types';
+import { USER_LOGIN_PROCESS, SET_OPEN_DELETE_CONFIRM_DIALOG } from '../types';
 import axios from 'axios';
 
 const registeCitySuccess = (res) =>{
@@ -36,4 +36,9 @@ export const employeeRegister = (datas) => (dispatch) => {
 };
 
 
-
+export function setOpenDeleteConfirmDialog(data) {
+  return {
+      type: SET_OPEN_DELETE_CONFIRM_DIALOG,
+      payload: data
+  }
+}

@@ -7,6 +7,8 @@ import { AuthRoutes } from './config/routerConfig'
 import ProtectedRout from './config/ProtectedRout.config'
 import MainScreenLoader from './component/MainScreenLoader'
 import {useTheme, makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Actions from './store/actions'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,33 +22,54 @@ const useStyles = makeStyles((theme) => ({
   })
 )
 
+function AuthWrraper(props){
+  const dispatch = useDispatch();
+  const { isAuthenticationUpdated } =  useSelector(({ auth }) => auth );
+  console.log("is authenticateon : ", isAuthenticationUpdated)
+
+  React.useEffect(()=>{
+    dispatch(Actions.handleAuthentication());
+  },[])
+
+  React.useEffect(()=>{
+    if( isAuthenticationUpdated === true ){
+      dispatch(Actions.handleAuthentication());
+    }
+  },[isAuthenticationUpdated])
+  return(
+    <React.Fragment>
+       <App /> 
+    </React.Fragment>
+  )
+}
+
 function App() {
   const classes = useStyles();
   return (
-          <React.Fragment>
+        <React.Fragment>
+          <Router history={history.createBrowserHistory()}>
             <div className={classes.root}>
                 <DeshAppBar />
                 <main className={classes.content}>
                   <div className={classes.toolbar} />
-                  <Router history={history}>
                     <Suspense fallback={<MainScreenLoader />}>
                       <Switch>
                         {AuthRoutes.map((RouteObj,index)=>(
-                            <ProtectedRout
-                                key={index}
-                                path={RouteObj.path}
-                                exact
-                                // exact={(exact !== undefined && exact === true)? true : false}
-                                // component={lazy(()=> import(RouteObj.component))}
-                                component={RouteObj.component}
-                            />
+                          <ProtectedRout
+                              key={index}
+                              path={RouteObj.path}
+                              exact
+                              // exact={(exact !== undefined && exact === true)? true : false}
+                              // component={lazy(()=> import(RouteObj.component))}
+                              component={RouteObj.component}
+                          />
                         ))}
                       </Switch>
                     </Suspense>
-                  </Router>
                 </main>
             </div>
-          </React.Fragment>
+          </Router>
+        </React.Fragment>
   );
 }
-export default App;
+export default AuthWrraper;
