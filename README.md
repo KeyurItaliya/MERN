@@ -6,7 +6,6 @@ export function getTasksList(currentPage, limit, searchText, sorting, filter, fi
         taskService.getTaskList(currentPage, limit, searchText, sorting, filter, filter_params,'', '')
             .then((response) => {
                 const { total_record, data } = response;
-                // console.log("total record: ", total_record )
                 if( appendData === true ){
                     dispatch({
                         type: APPEND_DATA_IN_TABLE_TASKS_LIST,
@@ -23,7 +22,6 @@ export function getTasksList(currentPage, limit, searchText, sorting, filter, fi
                 dispatch(startApiCallTasksList(false));
                 return dispatch(Actions.hideTopLoader());
             }).catch(error => {
-                console.log('getTaskList error ' + error);
                 dispatch(Actions.showMessage(error.message));
                 dispatch(resetTasksList());
                 dispatch(setTotalRecordsTasks(0));
