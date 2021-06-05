@@ -61,3 +61,4 @@ export function getTasksList(currentPage, limit, searchText, sorting, filter, fi
    
    
    ##react-select-async-paginate
+
