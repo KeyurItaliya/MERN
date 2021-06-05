@@ -2,7 +2,6 @@
 
 #actions
 export function getTasksList(currentPage, limit, searchText, sorting, filter, filter_params, appendData = false, isFrom = '') {
-    // console.log("filter ::----->", currentPage, limit, searchText, sorting, filter, filter_params)
     return (dispatch) =>
         taskService.getTaskList(currentPage, limit, searchText, sorting, filter, filter_params,'', '')
             .then((response) => {
