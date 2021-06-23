@@ -79,7 +79,10 @@ var b = a.replace(/[+\-*:T/]/g, "")
 document.getElementById("dateDisplay").innerHTML = b; 
 
 let date = moment('2017-04-21 09:30:26.123');
+
 //parse date
+
+
 document.getElementById("parsedDateDisplay").innerHTML = date;
 
 //check if the date is valid
