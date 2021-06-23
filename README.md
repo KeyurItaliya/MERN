@@ -62,4 +62,6 @@ export function getTasksList(currentPage, limit, searchText, sorting, filter, fi
    
    multer size set:
         -https://www.jsmount.com/upload-image-in-node-js-with-multer/
+        
+        new Date(moment.utc(date).format('MM/DD/YYYY'))
    
