@@ -68,3 +68,15 @@ export function getTasksList(currentPage, limit, searchText, sorting, filter, fi
    moment(new Date(values.due_date)).format('YYYY-MM-DD[T][18:30:00.000Z]')
    
    new Date(moment.utc(taskDetailList.due_date).add(1, 'day').format('MM/DD/YYYY hh:mm:ss'))
+   
+   //format date
+var a = moment('Thu Apr 13 2021 17:09:20 GMT+0530 (India Standard Time').format();
+var b = a.replace(/[+\-*:T/]/g, "")
+document.getElementById("dateDisplay").innerHTML = b; 
+
+let date = moment('2017-04-21 09:30:26.123');
+//parse date
+document.getElementById("parsedDateDisplay").innerHTML = date;
+
+//check if the date is valid
+document.getElementById("isValid1").innerHTML = moment('2017-04-21 09:30:26.123').isValid();
