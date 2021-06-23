@@ -71,7 +71,11 @@ export function getTasksList(currentPage, limit, searchText, sorting, filter, fi
    
    //format date
 var a = moment('Thu Apr 13 2021 17:09:20 GMT+0530 (India Standard Time').format();
+
+
 var b = a.replace(/[+\-*:T/]/g, "")
+
+
 document.getElementById("dateDisplay").innerHTML = b; 
 
 let date = moment('2017-04-21 09:30:26.123');
