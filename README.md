@@ -60,8 +60,9 @@ export function getTasksList(currentPage, limit, searchText, sorting, filter, fi
    ##react-select-async-paginate
    
    
-   multer size set:
+ #multer size set:
         -https://www.jsmount.com/upload-image-in-node-js-with-multer/
-        
+ #moment:
         new Date(moment.utc(date).format('MM/DD/YYYY'))
-   
+
+   moment(new Date(values.due_date)).format('YYYY-MM-DD[T][18:30:00.000Z]')
