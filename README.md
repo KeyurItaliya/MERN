@@ -66,3 +66,5 @@ export function getTasksList(currentPage, limit, searchText, sorting, filter, fi
         new Date(moment.utc(date).format('MM/DD/YYYY'))
 
    moment(new Date(values.due_date)).format('YYYY-MM-DD[T][18:30:00.000Z]')
+   
+   new Date(moment.utc(taskDetailList.due_date).add(1, 'day').format('MM/DD/YYYY hh:mm:ss'))
