@@ -58,4 +58,8 @@ export function getTasksList(currentPage, limit, searchText, sorting, filter, fi
    
    
    ##react-select-async-paginate
-
+   
+   
+   multer size set:
+        -https://www.jsmount.com/upload-image-in-node-js-with-multer/
+   
